@@ -26,7 +26,7 @@
 ### Software should be developed on:
 1. Ruby version 2.5.3
 2. Rails 5.0 or newer.
-3. Database engine MySql.
+3. Database engine MySQL 5.7.x.
 4. Ruby gemset name "tournament"
 5. Rspec 3.7 or higer
 6. Rubocop 0.76.0 with given [rubocop.yml](./rubocop.yml) file.
