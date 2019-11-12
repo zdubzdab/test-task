@@ -31,4 +31,11 @@
 5. Rspec 3.7 or higer
 6. Rubocop 0.76.0 with given [rubocop.yml](./rubocop.yml) file.
 
+### Instructions on how to submit task
+1. Clone project localy
+2. Code task requirements
+3. Commit changes and push back to gitlab
+4. If you have any addtional instructions on how to setup you application, add it to new file INSTRUCTIONS.md
+5. Send us an information via Email when task is done, we won't check task until it's done
+
 *Please show your best knowledge of object-oriented programming, that includes business logic split through models and services.*
