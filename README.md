@@ -1,11 +1,10 @@
-# Test task Mogo Baltics and Caucasus
+# AS Mogo Baltics and Caucasus test task
+In this task a developer is asked to develop software that can be used to manage tournament scoring.
 
-## Develop software that can be used to manage tournament scoring.
-
-### User storyline:
+### User story:
 1. Home screen: There is a list of all tournaments (name, status, winner, finalist). User can create new one, by entering tournament's name.
-2. New tournament: There is list of all teams, and possibility to add new team.  User can choose 16 teams to participate in this tournament. After clicking start, teams are randomly split in two divisions.
-3. Game view: There should be possible to see each game between teams. Each division separately. There should be button to generate results for all teams. When results is generated, start playoff. After playoff is started, playoff generation button should be visible. Regular seasons table example:
+2. New tournament: There is list of all teams, and possibility to add new team. User can choose 16 teams to participate in this tournament. After clicking start, teams are randomly split in two divisions.
+3. Game view: It should be possible to see each game between teams. Each division separately. There should be button to generate results for all teams. When results is generated, start playoff. After playoff is started, playoff generation button should be visible. Regular seasons table example:
 
 ![alt text](./Games.jpg "Games example")￼
 
@@ -14,11 +13,11 @@
 ### Functional requirements:
 1. Tournament names are unique. Tournament has status (draft, in_progress, done)
 2. User can enter list of teams. Together 16 teams are participating. Also there should be possibility to generate random teams. It's not allowed to add one team to a tournament multiple times.
-3. Teams by random are split in 2 divisions – A and B (8 teams in each).
-4. In each division teams play each against other. Each game between teams should be saved into database.
+3. Teams are split in 2 divisions – A and B – by random (8 teams in each).
+4. All teams in a division play against each other. Each game between teams should be saved into database.
 5. The best 4 teams from each division meet in Play-off.
-6. Play-off initial schedule is made by principle - best team plays against worst team.
-7. The winning team stays to play further but the losing team is out of the game.
+6. Play-off initial schedule is made by principle 'the best team plays against the worst team'.
+7. The winning team stays to play further, but the losing team is out of the game.
 8. Overall winning team is the one who wins all games in play-off.
 9. In order not to enter the tournament results by hand please use auto generation
 10. Results must be saved in database
@@ -32,10 +31,10 @@
 6. Rubocop 0.76.0 with given [rubocop.yml](./rubocop.yml) file.
 
 ### Instructions on how to submit task
-1. Clone project localy
+1. Clone project locally
 2. Code task requirements
-3. Commit changes and push back to gitlab
-4. If you have any addtional instructions on how to setup you application, add it to new file INSTRUCTIONS.md
-5. Send us an information via Email when task is done, we won't check task until it's done
+3. Commit changes to a feature branch, and push to gitlab
+4. If you have any additional instructions on how to setup you application, add it to new file INSTRUCTIONS.md
+5. Send us an e-mail when task is done so we can begin checking.
 
-*Please show your best knowledge of object-oriented programming, that includes business logic split through models and services.*
+*Please show your best knowledge of object-oriented programming, and Rails coding practices.*
