@@ -1,10 +1,10 @@
-# AS Mogo Baltics and Caucasus test task
-In this task a developer is asked to develop software that can be used to manage tournament scoring.
+# AS Mogo Baltics and Caucasus test task for new developers
+In this task a developer is asked to develop software that can be used to manage tournament scoring, for example, football.
 
 ### User story:
 1. Home screen: There is a list of all tournaments (name, status, winner, finalist). User can create new one, by entering tournament's name.
-2. New tournament: There is list of all teams, and possibility to add new team. User can choose 16 teams to participate in this tournament. After clicking start, teams are randomly split in two divisions.
-3. Game view: It should be possible to see each game between teams. Each division separately. There should be button to generate results for all teams. When results is generated, start playoff. After playoff is started, playoff generation button should be visible. Regular seasons table example:
+2. New tournament: There is list of all teams, and possibility to add new team. User can choose teams to participate in this tournament. After clicking start, teams are randomly split in two divisions.
+3. View Tournament: It should be possible to see each game between teams, each division separately. There should be button to generate results for all teams. When results is generated, start playoff. After playoff is started, playoff generation button should be visible. Results can also be enetered manually. Regular seasons table example:
 
 ![alt text](./Games.jpg "Games example")￼
 
