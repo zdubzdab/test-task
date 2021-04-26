@@ -1,4 +1,4 @@
-# AS Mogo Baltics and Caucasus test task for new developers
+# Mogo Car Finance Ruby on Rails developer task
 In this task a developer is asked to develop software that can be used to manage tournament scoring, for example, football.
 
 ### User story:
