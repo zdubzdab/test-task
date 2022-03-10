@@ -23,12 +23,17 @@ In this task a developer is asked to develop software that can be used to manage
 10. Results must be saved in database
 
 ### Software should be developed on:
-1. Ruby version 2.5.3
-2. Rails 5.0 or newer.
+1. Ruby version 2.7.1
+2. Rails 5.0
 3. Database engine MySQL 5.7.x.
 4. Ruby gemset name "tournament"
-5. Rspec 3.7 or higer
-6. Rubocop 0.76.0 with given [rubocop.yml](./rubocop.yml) file.
+5. Rspec 3.9 
+6. Rubocop 1.25.1 with given [rubocop.yml](./rubocop.yml) file and related gems.
+```
+"rubocop-rspec", "2.9.0"
+"rubocop-rails", "2.13.2"
+"rubocop-performance", "1.13.2"
+```
 
 ### Instructions on how to submit task
 1. Clone project locally

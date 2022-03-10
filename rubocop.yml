@@ -5,14 +5,6 @@ require:
   - rubocop-rails
 
 AllCops:
-  RSpec:
-    Patterns:
-    - _spec.rb
-    - "(?:^|/)spec/"
-  RSpec/FactoryBot:
-    Patterns:
-    - spec/factories/**/*.rb
-    - features/support/factories/**/*.rb
   RubyInterpreters:
     - ruby
     - macruby
@@ -74,6 +66,8 @@ AllCops:
     - 'vendor/**/*'
     - '.git/**/*'
     - 'bin/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*_init_schema.rb'
   # Default formatter will be used if no `-f/--format` option is given.
   DefaultFormatter: progress
   # Cop names are displayed in offense messages by default. Change behavior
@@ -126,10 +120,13 @@ AllCops:
   # this kind of attack, and wish to use a symlinked cache location, set this
   # value to "true".
   AllowSymlinksInCacheRootDirectory: false
-  TargetRubyVersion: 2.5
-  TargetRailsVersion: 4.2
+  TargetRubyVersion: 2.7
+  TargetRailsVersion: 5.0
 
 #################### Layout ###########################
+
+Style/DisableCopsWithinSourceCodeDirective:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false
@@ -144,7 +141,7 @@ Layout/AccessModifierIndentation:
   # But it can be overridden by setting this parameter
   IndentationWidth: ~
 
-Layout/AlignArguments:
+Layout/ArgumentAlignment:
   Enabled: true
   StyleGuide: '#no-double-indent'
   VersionAdded: '0.68'
@@ -156,16 +153,16 @@ Layout/AlignArguments:
   EnforcedStyle: with_fixed_indentation
   IndentationWidth: ~
 
-Layout/AlignArray:
+Layout/ArrayAlignment:
   Enabled: true
 
 # Align the elements of a hash literal if they span more than one line.
-Layout/AlignHash:
+Layout/HashAlignment:
   EnforcedHashRocketStyle: key
   EnforcedColonStyle: key
   EnforcedLastArgumentHashStyle: always_inspect
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Description: >-
                  Align the parameters of a method call if they span more
                  than one line.
@@ -256,6 +253,9 @@ Layout/EmptyLines:
 Layout/EmptyLinesAroundAccessModifier:
   Enabled: true
 
+Layout/EmptyLinesAroundArguments:
+  Enabled: true
+
 Layout/EmptyLinesAroundBeginBody:
   Enabled: true
 
@@ -277,6 +277,9 @@ Layout/EmptyLinesAroundClassBody:
     - ending_only
 
 Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: true
+
+Layout/EmptyLinesAroundMethodBody:
   Enabled: true
 
 Layout/EmptyLinesAroundModuleBody:
@@ -355,7 +358,7 @@ Layout/HeredocArgumentClosingParenthesis:
   # buggy, just noise
   Enabled: false
 
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   Enabled: true
   EnforcedStyle: consistent
   # By default, the indentation width from `Layout/IndentationWidth` is used
@@ -377,27 +380,27 @@ Layout/IndentationWidth:
   IgnoredPatterns: []
 
 # Checks the indentation of the first element in an array literal.
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
   # By default, the indentation width from `Layout/IndentationWidth` is used
   # But it can be overridden by setting this parameter
   IndentationWidth: ~
 
 # Checks the indentation of assignment RHS, when on a different line from LHS
-Layout/IndentAssignment:
+Layout/AssignmentIndentation:
   # By default, the indentation width from `Layout/IndentationWidth` is used
   # But it can be overridden by setting this parameter
   IndentationWidth: ~
 
 # Checks the indentation of the first key in a hash literal.
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
   # By default, the indentation width from `Layout/IndentationWidth` is used
   # But it can be overridden by setting this parameter
   IndentationWidth: ~
 
-Layout/IndentHeredoc:
-  EnforcedStyle: squiggly
+Layout/HeredocIndentation:
+  Enabled: true
 
 Layout/SpaceInLambdaLiteral:
   EnforcedStyle: require_space
@@ -461,15 +464,13 @@ Layout/MultilineMethodDefinitionBraceLayout:
     - same_line
 
 Layout/MultilineOperationIndentation:
+  Enabled: true
   EnforcedStyle: indented
-  SupportedStyles:
-    - aligned
-    - indented
   # By default, the indentation width from `Layout/IndentationWidth` is used
   # But it can be overridden by setting this parameter
-  IndentationWidth: 2
+  IndentationWidth: ~
 
-Layout/LeadingBlankLines:
+Layout/LeadingEmptyLines:
   Enabled: true
 
 Layout/LeadingCommentSpace:
@@ -477,6 +478,12 @@ Layout/LeadingCommentSpace:
 
 Layout/SpaceAfterColon:
   Enabled: true
+
+Layout/SingleLineBlockChain:
+  Enabled: false
+
+Naming/InclusiveLanguage:
+  Enabled: false
 
 Layout/SpaceAroundBlockParameters:
   EnforcedStyleInsidePipes: no_space
@@ -572,14 +579,7 @@ Layout/SpaceInsideStringInterpolation:
 Layout/RescueEnsureAlignment:
   Enabled: true
 
-Layout/Tab:
-  # By default, the indentation width from Layout/IndentationWidth is used
-  # But it can be overridden by setting this parameter
-  # It is used during auto-correction to determine how many spaces should
-  # replace each tab.
-  IndentationWidth: ~
-
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   EnforcedStyle: final_newline
   SupportedStyles:
     - final_newline
@@ -652,7 +652,7 @@ Naming/FileName:
     - XSS
 
 Naming/HeredocDelimiterNaming:
-  Blacklist:
+  ForbiddenDelimiters:
     - !ruby/regexp '/(^|\s)(EO[A-Z]{1}|END)(\s|$)/'
 
 Naming/HeredocDelimiterCase:
@@ -677,11 +677,12 @@ Naming/PredicateName:
     - has_
     - have_
   # Predicate name prefixes that should be removed.
-  NamePrefixBlacklist:
+  ForbiddenPrefixes:
     - is_
+    - has_
   # Predicate names which, despite having a blacklisted prefix, or no `?`,
   # should still be accepted
-  NameWhitelist:
+  AllowedMethods:
     - is_a?
   # Method definition macros for dynamically generated methods.
   MethodDefinitionMacros:
@@ -692,7 +693,7 @@ Naming/PredicateName:
   Exclude:
     - 'spec/**/*'
 
-Naming/UncommunicativeBlockParamName:
+Naming/BlockParameterName:
   # Parameter names may be equal to or greater than this value
   MinNameLength: 1
   AllowNamesEndingInNumbers: true
@@ -701,7 +702,7 @@ Naming/UncommunicativeBlockParamName:
   # Blacklisted names that will register an offense
   ForbiddenNames: []
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   # Parameter names may be equal to or greater than this value
   MinNameLength: 3
   AllowNamesEndingInNumbers: true
@@ -721,13 +722,15 @@ Naming/UncommunicativeMethodParamName:
   ForbiddenNames: []
 
 Naming/VariableName:
+  Enabled: true
   EnforcedStyle: snake_case
   SupportedStyles:
     - snake_case
     - camelCase
 
 Naming/VariableNumber:
-  Enabled: true
+  CheckMethodNames: false
+  CheckSymbols: false
   EnforcedStyle: normalcase
   Exclude:
     # not so relevant in specs
@@ -737,6 +740,30 @@ Naming/VariableNumber:
 
 Performance/ChainArrayAllocation:
   # Disabled because .uniq! and .compact! return nil sometimes
+  Enabled: false
+
+Performance/Detect:
+  Enabled: true
+
+Performance/StringReplacement:
+  # tells where gsub can be replaced with #tr or #delete
+  Enabled: true
+
+Performance/Casecmp:
+  # just noise
+  Enabled: false
+
+Performance/DoubleStartEndWith:
+  # Used to check for `starts_with?` and `ends_with?`.
+  # These methods are defined by `ActiveSupport`.
+  IncludeActiveSupportAliases: false
+
+Performance/OpenStruct:
+  # not that important
+  Enabled: false
+
+Performance/RedundantBlockCall:
+  # just noise
   Enabled: false
 
 ################### Security #########################
@@ -753,6 +780,9 @@ Style/AccessModifierDeclarations:
   SupportedStyles:
     - inline
     - group
+
+Style/AccessorGrouping:
+  Enabled: true
 
 Style/Alias:
   # prefers bareword aliasing, noisy
@@ -854,19 +884,19 @@ Style/BlockDelimiters:
     - proc
     - it
 
-Style/BracesAroundHashParameters:
-  EnforcedStyle: no_braces
-  SupportedStyles:
-    # The `braces` style enforces braces around all method parameters that are
-    # hashes.
-    - braces
-    # The `no_braces` style checks that the last parameter doesn't have braces
-    # around it.
-    - no_braces
-    # The `context_dependent` style checks that the last parameter doesn't have
-    # braces around it, but requires braces if the second to last parameter is
-    # also a hash literal.
-    - context_dependent
+# Style/BracesAroundHashParameters:
+#   EnforcedStyle: no_braces
+#   SupportedStyles:
+#     # The `braces` style enforces braces around all method parameters that are
+#     # hashes.
+#     - braces
+#     # The `no_braces` style checks that the last parameter doesn't have braces
+#     # around it.
+#     - no_braces
+#     # The `context_dependent` style checks that the last parameter doesn't have
+#     # braces around it, but requires braces if the second to last parameter is
+#     # also a hash literal.
+#     - context_dependent
 
 Style/ClassAndModuleChildren:
   # Checks the style of children definitions at classes and modules.
@@ -1021,21 +1051,18 @@ Style/GlobalVars:
 Style/GuardClause:
   MinBodyLength: 1
 
+Style/HashAsLastArrayItem:
+  Enabled: false
+
 Style/HashSyntax:
-  EnforcedStyle: ruby19
-  SupportedStyles:
-    # checks for 1.9 syntax (e.g. {a: 1}) for all symbol keys
-    - ruby19
-    # checks for hash rocket syntax for all hashes
-    - hash_rockets
-    # forbids mixed key syntaxes (e.g. {a: 1, :b => 2})
-    - no_mixed_keys
-    # enforces both ruby19 and no_mixed_keys styles
-    - ruby19_no_mixed_keys
+  EnforcedStyle: ruby19_no_mixed_keys
   # Force hashes that have a symbol value to use hash rockets
   UseHashRocketsWithSymbolValues: false
   # Do not suggest { a?: 1 } over { :a? => 1 } in ruby19 style
   PreferHashRocketsForNonAlnumEndingSymbols: false
+
+Style/IfInsideElse:
+  Enabled: true
 
 Style/IfUnlessModifier:
   # Noisy
@@ -1071,9 +1098,9 @@ Style/InverseMethods:
 Style/IpAddresses:
   Enabled: false
   # Allow strings to be whitelisted
-  Whitelist:
+  AllowedAddresses:
     - "::"
-    # :: is a valid IPv6 address, but could potentially be legitimately in code
+    # :: is a valid IPv6 address, could legitimately in code
 
 Style/Lambda:
   EnforcedStyle: literal
@@ -1182,7 +1209,7 @@ Style/NegatedIf:
     - postfix
 
 Style/NestedParenthesizedCalls:
-  Whitelist:
+  AllowedMethods:
     - be
     - be_a
     - be_an
@@ -1204,6 +1231,7 @@ Style/NestedParenthesizedCalls:
     - and
 
 Style/Next:
+  Enabled: true
   # With `always` all conditions at the end of an iteration needs to be
   # replaced by next - with `skip_modifier_ifs` the modifier if like this one
   # are ignored: [1, 2].each { |a| return 'yes' if a == 1 }
@@ -1325,7 +1353,7 @@ Style/SafeNavigation:
   # Safe navigation may cause a statement to start returning `nil` in addition
   # to whatever it used to return.
   ConvertCodeThatCanStartToReturnNil: false
-  Whitelist:
+  AllowedMethods:
     - present?
     - blank?
     - presence
@@ -1483,7 +1511,7 @@ Style/TrivialAccessors:
   # Commonly used in DSLs
   AllowDSLWriters: false
   IgnoreClassMethods: false
-  Whitelist:
+  AllowedMethods:
     - to_ary
     - to_a
     - to_c
@@ -1529,6 +1557,10 @@ Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be an Integer or
   # a Float.
   Max: 23
+  Exclude:
+  # Excluding feature helper methods
+  - spec/features/**/*
+  - db/migrate/**/*
 
 Metrics/BlockLength:
   CountComments: false  # count full line comments?
@@ -1536,7 +1568,8 @@ Metrics/BlockLength:
   Exclude:
     - "**/*_spec.rb"
     - "**/factories/**/*.rb"
-  ExcludedMethods:
+    - "**/db/migrate/**/*.rb"
+  IgnoredMethods:
     - refine
     - describe
     - it
@@ -1571,50 +1604,72 @@ Metrics/ClassLength:
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 6
+  Exclude:
+    - 'db/migrate/**/*'
 
-Metrics/LineLength:
-  Max: 90
-  # To make it possible to copy or click on URIs in the code, we allow lines
-  # containing a URI to be longer than Max.
+Layout/LineLength:
+  Enabled: true
+  Max: 85
   AllowHeredoc: true
-  AllowURI: true
+  AllowURI: false
   URISchemes:
     - http
     - https
   # The IgnoreCopDirectives option causes the LineLength rule to ignore cop
   # directives like '# rubocop: enable ...' when calculating a line's length.
-  IgnoreCopDirectives: false
+  IgnoreCopDirectives: true
   # The IgnoredPatterns option is a list of !ruby/regexp and/or string
   # elements. Strings will be converted to Regexp objects. A line that matches
   # any regular expression listed in this option will be ignored by LineLength.
-
   IgnoredPatterns:
+    # ignore long if/elsif/unless lines, major hassle to refactor
+    # TODO, remove and refactor
+    - ^\s*((if )|(unless )|(elsif ))
     # ignore comment lines
     - ^\s*(#)
     # ignore spec headers
-    - ^\s*((RSpec\.describe)|(describe)|(context)|(it ")|(xit ")|(feature)|(scenario))   
+    - ^\s*((RSpec\.describe)|(RSpec\.feature)|(RSpec\.shared_examples)|(describe )|(context )|(it ")|(xit ")|(feature)|(scenario))
     # ignore long system call lines (pain to refactor)
     - ^\s*[`]
+    # ignore long regex lines, pain to split up
+    - ^\s*\%r[']
     # ignoring long singlequoted joins, pain to refactor
     - ^\s*joins\([']
     # ignore long puts lines, ugh
     - ^\s*puts
-    # ignore long class, module, and def lines
+    # ignore long private_class_method definition lines
+    - ^\s*private_class_method
+    # ignore long lines that start with a capital letter, probably const assignement
+    - ^\s*[(]*[A-Z]{3,}
+    # ignore long lines that start with a quote and at least two capital letters
+    # probably SQL snippets
+    - ^\s*["'][A-Z]{2,}
+    # ignore long class, module, def, and desc (rake) lines
     - ^\s*((class )|(module )|(def )|(desc ))
     # ignore random long XML lines
     - ^\s*<s
     # ignore long debug arrow (as in "-->") lines
     - ^\s*"-
     # ignore long grape directives
-    - ^\s*((requires )|(optional ))    
+    - ^\s*((requires )|(optional ))
     # ignore I13n lines
     - ^\s*((self\.class\.trace_execution_scoped)|(Instrumenter))
+    # ignore long `have_content` matcher lines
+    - ^\s*have_content
     # ignore long have_field helper lines
-    - ^\s*have_field
+    - ^\s*((have_field)|(and have_field))
+    # ignore long rake task definitions
+    - ^\s*task[( ]
+    # ignore long xml build lines
+    - ^\s*xml
 
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 25
+  Exclude:
+  # Excluding feature helper methods
+  - spec/features/**/*
+  - db/migrate/**/*
 
 Metrics/ModuleLength:
   CountComments: false  # count full line comments?
@@ -1629,6 +1684,8 @@ Metrics/ParameterLists:
 
 Metrics/PerceivedComplexity:
   Max: 7
+  Exclude:
+    - 'db/migrate/**/*'
 
 #################### Lint ##################################
 
@@ -1638,6 +1695,14 @@ Lint/AmbiguousBlockAssociation:
 # Allow safe assignment in conditions.
 Lint/AssignmentInCondition:
   AllowSafeAssignment: true
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: true
+  Exclude:
+    - 'lib/tasks/db_datafixes/**/*'
+
+Lint/ConstantResolution:
+  Enabled: false
 
 Lint/InheritException:
   # The default base class in favour of `Exception`.
@@ -1656,11 +1721,14 @@ Lint/MissingCopEnableDirective:
   # .inf for any size
   MaximumRangeSize: .inf
 
+Lint/MissingSuper:
+  Enabled: false
+
 Lint/NumberConversion:
   Enabled: false
 
 Lint/SafeNavigationChain:
-  Whitelist:
+  AllowedMethods:
     - present?
     - blank?
     - presence
@@ -1668,7 +1736,7 @@ Lint/SafeNavigationChain:
     - try!
 
 Lint/SafeNavigationConsistency:
-  Whitelist:
+  AllowedMethods:
     - present?
     - blank?
     - presence
@@ -1705,25 +1773,6 @@ Lint/Void:
   Exclude:
   # Excluding specs because false positive on capybara's #select method
   - spec/**/*
-
-#################### Performance ###########################
-
-Performance/Casecmp:
-  # just noise
-  Enabled: false
-
-Performance/DoubleStartEndWith:
-  # Used to check for `starts_with?` and `ends_with?`.
-  # These methods are defined by `ActiveSupport`.
-  IncludeActiveSupportAliases: false
-
-Performance/OpenStruct:
-  # not that important
-  Enabled: false
-
-Performance/StringReplacement:
-  # identifies where gsub can be replaced with tr or delete
-  Enabled: true
 
 #################### Rails #################################
 
@@ -1819,6 +1868,7 @@ Rails/HasAndBelongsToMany:
     - app/models/**/*.rb
 
 Rails/HasManyOrHasOneDependent:
+  Enabled: true
   Include:
     - app/models/**/*.rb
 
@@ -1829,6 +1879,9 @@ Rails/HttpStatus:
   SupportedStyles:
     - numeric
     - symbolic
+
+Rails/IndexBy:
+  Enabled: false
 
 Rails/InverseOf:
   Include:
@@ -1854,6 +1907,9 @@ Rails/Output:
     - config/**/*.rb
     - db/**/*.rb
     - lib/**/*.rb
+
+Rails/PluckInWhere:
+  Enabled: true
 
 Rails/PluralizationGrammar:
   Enabled: true
@@ -1900,8 +1956,8 @@ Rails/SafeNavigation:
 Rails/SaveBang:
   Enabled: true
   Exclude:
-    - spec/support/**/*.rb 
-  
+    - spec/support/**/*.rb
+
 Rails/ScopeArgs:
   Include:
     - app/models/**/*.rb
@@ -1929,7 +1985,7 @@ Rails/UnknownEnv:
 
 Rails/SkipsModelValidations:
   Enabled: true
-  Blacklist:
+  ForbiddenMethods:
     - decrement!
     - decrement_counter
     - increment!
@@ -1949,11 +2005,21 @@ Rails/Validation:
   Include:
     - app/models/**/*.rb
 
+Rails/WhereExists:
+  # backwards cop
+  Enabled: False
+
+Rails/SchemaComment:
+  Enabled: false
+
 Bundler/OrderedGems:
   TreatCommentsAsGroupSeparators: true
 
 Gemspec/OrderedDependencies:
   TreatCommentsAsGroupSeparators: true
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
 
 RSpec/AnyInstance:
   Description: Check that instances are not being stubbed globally.
@@ -2016,7 +2082,7 @@ RSpec/DescribedClass:
   Description: Checks that tests use `described_class`.
   SkipBlocks: true
   Enabled: true
-  EnforcedStyle: described_class 
+  EnforcedStyle: described_class
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass
 
 RSpec/DescribeMethod:
@@ -2037,8 +2103,10 @@ RSpec/IteratedExpectation:
 RSpec/EmptyExampleGroup:
   Description: Checks if an example group does not include any tests.
   Enabled: false
-  CustomIncludeMethods: []
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup
+
+RSpec/EmptyLineAfterExample:
+  Enabled: true
 
 RSpec/EmptyLineAfterExampleGroup:
   Description: Checks if there is an empty line after example group blocks.
@@ -2165,11 +2233,6 @@ RSpec/InstanceVariable:
   AssignmentOnly: false
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable
 
-RSpec/InvalidPredicateMatcher:
-  Description: Checks invalid usage for predicate matcher.
-  Enabled: true
-  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InvalidPredicateMatcher
-
 RSpec/ItBehavesLike:
   Description: Checks that only one `it_behaves_like` style is used.
   Enabled: true
@@ -2183,6 +2246,9 @@ RSpec/LeadingSubject:
   Description: Enforce that subject is the first definition in the test.
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: true
 
 RSpec/LetBeforeExamples:
   Description: Checks for `let` definitions that come after an example.
@@ -2226,7 +2292,6 @@ RSpec/MultipleExpectations:
   Description: Checks if examples contain too many `expect` calls.
   Enabled: true
   Max: 10
-  AggregateFailuresByDefault: false
   Exclude:
     # skip features, because they can get long
     - 'spec/features/**/*'
@@ -2281,6 +2346,12 @@ RSpec/RepeatedExample:
   Description: Check for repeated examples within example groups.
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample
 
+RSpec/RepeatedExampleGroupBody:
+  Enabled: true
+
+RSpec/RepeatedExampleGroupDescription:
+  Enabled: true
+
 RSpec/ReturnFromStub:
   Enabled: true
   Description: Checks for consistent style of stub's return setting.
@@ -2316,8 +2387,8 @@ RSpec/ScatteredSetup:
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup
 
 RSpec/SubjectStub:
-  Description: Checks for stubbed test subjects.
   Enabled: true
+  Description: Checks for stubbed test subjects.
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub
 
 RSpec/PredicateMatcher:
@@ -2344,12 +2415,12 @@ RSpec/VoidExpect:
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect
 
-Capybara/CurrentPathExpectation:
+RSpec/Capybara/CurrentPathExpectation:
   Description: Checks that no expectations are set on Capybara's `current_path`.
   Enabled: true
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation
 
-Capybara/FeatureMethods:
+RSpec/Capybara/FeatureMethods:
   Description: Checks for consistent method usage in feature specs.
   Enabled: true
   EnabledMethods:
@@ -2358,7 +2429,7 @@ Capybara/FeatureMethods:
     - scenario
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods
 
-FactoryBot/CreateList:
+RSpec/FactoryBot/CreateList:
   Description: Checks for create_list usage.
   Enabled: true
   EnforcedStyle: create_list
