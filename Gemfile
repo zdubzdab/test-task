@@ -35,6 +35,8 @@ gem "jbuilder", "~> 2.5"
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug", "~> 11.1.3", platform: :mri
+  # Brings the RSpec testing framework to Ruby on Rails
+  gem "rspec-rails", "~> 3.9.0"
 end
 
 group :development do
