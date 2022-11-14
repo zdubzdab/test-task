@@ -1,14 +1,15 @@
 %h1 Tournaments#index
 %p Find me in app/views/tournaments/index.html.haml
 
-/ t('.columns.mac')
-%div
 %table.table
   %thead
     %tr
-      %th a
-      %th b
+      %th= t('.name')
+      %th= t('.status')
+      %th= t('.winner')
+      %th= t('.finalist')
   %tbody
-    %tr
-      %td aa
-      %td bb
+    - tournaments.each do |tournament|
+      %tr
+        %td= tournament.name
+        %td= tournament.status
