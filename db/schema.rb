@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221114165800) do
+ActiveRecord::Schema.define(version: 20221114171150) do
+
+  create_table "division_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "team_id",     null: false
+    t.integer  "division_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["division_id"], name: "index_division_teams_on_division_id", using: :btree
+    t.index ["team_id"], name: "index_division_teams_on_team_id", using: :btree
+  end
+
+  create_table "divisions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "tournament_id",           null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "category",      limit: 1, null: false
+    t.index ["tournament_id"], name: "index_divisions_on_tournament_id", using: :btree
+  end
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "tournament_id", null: false
@@ -55,6 +72,9 @@ ActiveRecord::Schema.define(version: 20221114165800) do
     t.index ["name"], name: "index_tournaments_on_name", unique: true, using: :btree
   end
 
+  add_foreign_key "division_teams", "divisions"
+  add_foreign_key "division_teams", "teams"
+  add_foreign_key "divisions", "tournaments"
   add_foreign_key "games", "tournaments"
   add_foreign_key "team_games", "games"
   add_foreign_key "team_games", "teams"
