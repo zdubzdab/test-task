@@ -34,6 +34,11 @@ gem "jbuilder", "~> 2.5"
 # Haml-rails provides Haml generators for Rails 5, 6, and 7.
 gem "haml-rails", "~> 1.0.0"
 
+# Sass-powered version of Bootstrap 3, ready to drop right into your Sass powered applications.
+gem "bootstrap-sass", "~> 3.4.1"
+# Integrates the C implementation of Sass, LibSass, into the asset pipeline.
+gem "sassc-rails", ">= 2.1.0"
+
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug", "~> 11.1.3", platform: :mri
