@@ -3,6 +3,7 @@
 class Tournament < ApplicationRecord
   has_many :tournament_teams, dependent: :destroy
   has_many :teams, through: :tournament_teams
+  has_many :games, dependent: :destroy # maybe change into has_many :games, through: :divisins
 
   enum status: {draft: "draft", in_progress: "in_progress", done: "done"}
 end

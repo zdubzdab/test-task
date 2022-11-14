@@ -10,7 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221114140831) do
+ActiveRecord::Schema.define(version: 20221114165800) do
+
+  create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "tournament_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["tournament_id"], name: "index_games_on_tournament_id", using: :btree
+  end
+
+  create_table "team_games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "team_id",    null: false
+    t.integer  "game_id",    null: false
+    t.boolean  "win",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id", "win"], name: "index_team_games_on_game_id_and_win", unique: true, using: :btree
+    t.index ["game_id"], name: "index_team_games_on_game_id", using: :btree
+    t.index ["team_id"], name: "index_team_games_on_team_id", using: :btree
+  end
+
+  create_table "teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_teams_on_name", unique: true, using: :btree
+  end
+
+  create_table "tournament_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "team_id",       null: false
+    t.integer  "tournament_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["team_id", "tournament_id"], name: "index_tournament_teams_on_team_id_and_tournament_id", unique: true, using: :btree
+    t.index ["team_id"], name: "index_tournament_teams_on_team_id", using: :btree
+    t.index ["tournament_id"], name: "index_tournament_teams_on_tournament_id", using: :btree
+  end
 
   create_table "tournaments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name",                                    null: false
@@ -20,4 +55,9 @@ ActiveRecord::Schema.define(version: 20221114140831) do
     t.index ["name"], name: "index_tournaments_on_name", unique: true, using: :btree
   end
 
+  add_foreign_key "games", "tournaments"
+  add_foreign_key "team_games", "games"
+  add_foreign_key "team_games", "teams"
+  add_foreign_key "tournament_teams", "teams"
+  add_foreign_key "tournament_teams", "tournaments"
 end
