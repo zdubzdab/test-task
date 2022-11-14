@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateTournaments < ActiveRecord::Migration[5.0]
+class CreateTeams < ActiveRecord::Migration[5.0]
   def change
-    create_table(:tournaments) do |t|
+    create_table(:teams) do |t|
       t.string(:name, null: false, index: {unique: true})
 
       t.timestamps
