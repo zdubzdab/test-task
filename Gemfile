@@ -38,6 +38,10 @@ gem "haml-rails", "~> 1.0.0"
 gem "bootstrap-sass", "~> 3.4.1"
 # Integrates the C implementation of Sass, LibSass, into the asset pipeline.
 gem "sassc-rails", ">= 2.1.0"
+# Aims to be as flexible as possible while helping with powerful components to create your forms.
+gem "simple_form", "~> 5.0.3"
+# Runtime developer console and IRB alternative with powerful introspection capabilities.
+gem "pry", "~> 0.14.1"
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console

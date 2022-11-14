@@ -1,15 +1,25 @@
-%h1 Tournaments#index
-%p Find me in app/views/tournaments/index.html.haml
+%div
+  %div.form-group.col-md-3
+    %h4= t('.create_tournament')
 
-%table.table
-  %thead
-    %tr
-      %th= t('.name')
-      %th= t('.status')
-      %th= t('.winner')
-      %th= t('.finalist')
-  %tbody
-    - tournaments.each do |tournament|
-      %tr
-        %td= tournament.name
-        %td= tournament.status
+    = simple_form_for tournament do |f|
+      %form-control
+        = f.input :name
+      %btn
+        = f.button :submit
+
+  %div.col-md-10
+    %h3= t('.tournaments')
+    %table.table
+      %thead
+        %tr
+          %th= t('.name')
+          %th= t('.status')
+          %th= t('.winner')
+          %th= t('.finalist')
+
+      %tbody
+        - tournaments.each do |tournament|
+          %tr
+            %td= tournament.name
+            %td= tournament.status

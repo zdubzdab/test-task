@@ -6,5 +6,8 @@ class Tournament < ApplicationRecord
   has_many :games, dependent: :destroy # maybe change into has_many :games, through: :divisins
   has_many :divisions, dependent: :destroy
 
+  validates :name, presence: true, uniqueness: true
+  validates :status, presence: true
+
   enum status: {draft: "draft", in_progress: "in_progress", done: "done"}
 end

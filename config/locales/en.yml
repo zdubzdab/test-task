@@ -22,6 +22,8 @@
 en:
   tournaments:
     index:
+      tournaments: 'Tournaments'
+      create_tournament: 'Create tournament'
       name: 'Name'
       status: 'Status'
       winner: 'Winner'
