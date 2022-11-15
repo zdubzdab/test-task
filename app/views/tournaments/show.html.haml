@@ -1,5 +1,6 @@
 %div
-  = render 'teams/form', new_team: @new_team
+  = render 'teams/create_form', new_team: @new_team
+  = render 'teams/random_create_form', new_team: @new_team
 
   %div.col-md-10
     %h3= t('.all_teams')

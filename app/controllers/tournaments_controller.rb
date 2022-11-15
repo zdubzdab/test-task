@@ -4,17 +4,17 @@ class TournamentsController < ApplicationController
   helper_method :tournaments, :all_teams, :tournament
 
   def index
-    @new_tournament ||= Tournament.new
+    @new_tournament = Tournament.new
   end
 
   def create
-    @new_tournament = Tournament.create(tournament_params)
+    @new_tournament = Tournament.create!(tournament_params)
 
     render :index
   end
 
   def show
-    @new_team ||= Team.new
+    @new_team = Team.new
   end
 
   private

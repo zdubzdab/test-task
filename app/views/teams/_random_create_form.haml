@@ -1,0 +1,6 @@
+%div.form-group.col-md-3
+  %h4= t('.generate_random_team')
+
+  = simple_form_for new_team, url: tournament_teams_path(tournament) do |f|
+    = f.hidden_field :generate_random, value: true
+    = f.button :submit, t('.generate')

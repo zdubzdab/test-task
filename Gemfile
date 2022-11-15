@@ -42,6 +42,8 @@ gem "sassc-rails", ">= 2.1.0"
 gem "simple_form", "~> 5.0.3"
 # Runtime developer console and IRB alternative with powerful introspection capabilities.
 gem "pry", "~> 0.14.1"
+# A port of Perl's Data::Faker library that generates fake data
+gem "faker", git: "https://github.com/faker-ruby/faker.git", branch: "main"
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
