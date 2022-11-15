@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
 class TournamentsController < ApplicationController
-  helper_method :tournaments, :tournament
+  helper_method :tournaments, :all_teams, :tournament
+
+  def index
+    @new_tournament ||= Tournament.new
+  end
 
   def create
-    Tournament.create!(tournament_params)
+    @new_tournament = Tournament.create(tournament_params)
 
     render :index
   end
 
-  def show; end
+  def show
+    @new_team ||= Team.new
+  end
 
   private
 
@@ -22,6 +28,10 @@ class TournamentsController < ApplicationController
     end
 
     def tournament
-      @tournament ||= Tournament.new
+      @tournament ||= Tournament.find(params[:id])
+    end
+
+    def all_teams
+      @all_teams ||= Team.all
     end
 end

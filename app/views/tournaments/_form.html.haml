@@ -1,0 +1,8 @@
+%div.form-group.col-md-3
+  %h4= t('.create_tournament')
+
+  = simple_form_for new_tournament do |f|
+    %form-control
+      = f.input :name
+    %btn
+      = f.button :submit

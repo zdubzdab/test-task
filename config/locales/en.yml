@@ -23,8 +23,13 @@ en:
   tournaments:
     index:
       tournaments: 'Tournaments'
-      create_tournament: 'Create tournament'
       name: 'Name'
       status: 'Status'
       winner: 'Winner'
       finalist: 'Finalist'
+      show: 'Show'
+    form:
+      create_tournament: 'Create tournament'
+    show:
+      all_teams: 'Teams'
+      name: 'Name'

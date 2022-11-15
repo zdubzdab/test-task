@@ -1,12 +1,5 @@
 %div
-  %div.form-group.col-md-3
-    %h4= t('.create_tournament')
-
-    = simple_form_for tournament do |f|
-      %form-control
-        = f.input :name
-      %btn
-        = f.button :submit
+  = render 'form', new_tournament: @new_tournament
 
   %div.col-md-10
     %h3= t('.tournaments')
@@ -17,9 +10,13 @@
           %th= t('.status')
           %th= t('.winner')
           %th= t('.finalist')
+          %th= t('.show')
 
       %tbody
         - tournaments.each do |tournament|
           %tr
             %td= tournament.name
             %td= tournament.status
+            %td
+            %td
+            %td= link_to t('.show'), tournament_path(tournament)

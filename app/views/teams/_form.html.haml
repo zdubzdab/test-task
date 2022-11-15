@@ -1,0 +1,8 @@
+%div.form-group.col-md-3
+  %h4= t('.create_team')
+
+  = simple_form_for new_team, url: tournament_teams_path(tournament) do |f|
+    %form-control
+      = f.input :name
+    %btn
+      = f.button :submit

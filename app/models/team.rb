@@ -6,4 +6,6 @@ class Team < ApplicationRecord
 
   has_many :team_games, dependent: :destroy
   has_many :games, through: :team_games
+
+  validates :name, presence: true, uniqueness: true
 end

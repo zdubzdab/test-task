@@ -1,2 +1,14 @@
-%h1 Tournaments#show
-%p Find me in app/views/tournaments/show.html.haml
+%div
+  = render 'teams/form', new_team: @new_team
+
+  %div.col-md-10
+    %h3= t('.all_teams')
+    %table.table
+      %thead
+        %tr
+          %th= t('.name')
+
+      %tbody
+        - all_teams.each do |team|
+          %tr
+            %td= team.name

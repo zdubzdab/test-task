@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :tournaments, only: %i[create show index]
+  resources :tournaments, only: %i[create show index] do
+    resources :teams, only: %i[create]
+  end
 
   root "tournaments#index"
 end
