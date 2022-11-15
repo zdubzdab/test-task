@@ -10,7 +10,13 @@ en:
     form:
       create_tournament: Create tournament
     show:
+      tournament: "Tournament name: %{name}"
+    teams:
       all_teams: All teams
+      name: Name
+      assign_to_current_tournament: Assign to current tournament
+    tournament_teams:
+      tournament_teams: Tournament teams
       name: Name
   teams:
     create_form:

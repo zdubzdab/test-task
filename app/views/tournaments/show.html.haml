@@ -1,15 +1,8 @@
 %div
-  = render 'teams/create_form', new_team: @new_team
-  = render 'teams/random_create_form', new_team: @new_team
-
   %div.col-md-10
-    %h3= t('.all_teams')
-    %table.table
-      %thead
-        %tr
-          %th= t('.name')
+    %h3= t('.tournament', name: tournament.name)
 
-      %tbody
-        - all_teams.each do |team|
-          %tr
-            %td= team.name
+    = render 'teams/create_form', new_team: @new_team
+    = render 'teams/random_create_form', new_team: @new_team
+    = render 'tournament_teams'
+    = render 'teams'

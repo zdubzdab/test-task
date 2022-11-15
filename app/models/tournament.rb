@@ -10,4 +10,18 @@ class Tournament < ApplicationRecord
   validates :status, presence: true
 
   enum status: {draft: "draft", in_progress: "in_progress", done: "done"}
+
+  def space_for_team?(team)
+    free_space? && does_not_have_team?(team)
+  end
+
+  private
+
+    def does_not_have_team?(team)
+      teams.exclude?(team)
+    end
+
+    def free_space?
+      teams.count < 16
+    end
 end

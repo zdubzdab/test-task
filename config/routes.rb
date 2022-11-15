@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :tournaments, only: %i[create show index] do
-    resources :teams, only: %i[create]
+    resources :teams, only: %i[create update]
   end
 
   root "tournaments#index"

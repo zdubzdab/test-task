@@ -7,10 +7,16 @@ class TeamsController < ApplicationController
     redirect_back(fallback_location: tournament_path(tournament))
   end
 
+  def update
+    TeamsTournamentAssigner.new(team_params).call
+
+    redirect_back(fallback_location: tournament_path(tournament))
+  end
+
   private
 
     def team_params
-      params.require(:team).permit(:name, :generate_random)
+      params.require(:team).permit(:name, :generate_random, :tournament_id, :team_id)
     end
 
     def tournament
