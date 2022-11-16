@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221114171150) do
+ActiveRecord::Schema.define(version: 20221116085907) do
 
   create_table "division_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "team_id",     null: false
@@ -33,7 +33,25 @@ ActiveRecord::Schema.define(version: 20221114171150) do
     t.integer  "tournament_id", null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "playoff_id"
+    t.index ["playoff_id"], name: "index_games_on_playoff_id", using: :btree
     t.index ["tournament_id"], name: "index_games_on_tournament_id", using: :btree
+  end
+
+  create_table "playoff_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "team_id",    null: false
+    t.integer  "playoff_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["playoff_id"], name: "index_playoff_teams_on_playoff_id", using: :btree
+    t.index ["team_id"], name: "index_playoff_teams_on_team_id", using: :btree
+  end
+
+  create_table "playoffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "tournament_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["tournament_id"], name: "index_playoffs_on_tournament_id", using: :btree
   end
 
   create_table "team_games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -55,10 +73,11 @@ ActiveRecord::Schema.define(version: 20221114171150) do
   end
 
   create_table "tournament_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "team_id",       null: false
-    t.integer  "tournament_id", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "team_id",                   null: false
+    t.integer  "tournament_id",             null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "score",         default: 0, null: false
     t.index ["team_id", "tournament_id"], name: "index_tournament_teams_on_team_id_and_tournament_id", unique: true, using: :btree
     t.index ["team_id"], name: "index_tournament_teams_on_team_id", using: :btree
     t.index ["tournament_id"], name: "index_tournament_teams_on_tournament_id", using: :btree
@@ -75,7 +94,11 @@ ActiveRecord::Schema.define(version: 20221114171150) do
   add_foreign_key "division_teams", "divisions"
   add_foreign_key "division_teams", "teams"
   add_foreign_key "divisions", "tournaments"
+  add_foreign_key "games", "playoffs"
   add_foreign_key "games", "tournaments"
+  add_foreign_key "playoff_teams", "playoffs"
+  add_foreign_key "playoff_teams", "teams"
+  add_foreign_key "playoffs", "tournaments"
   add_foreign_key "team_games", "games"
   add_foreign_key "team_games", "teams"
   add_foreign_key "tournament_teams", "teams"
