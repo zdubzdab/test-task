@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class Tournament < ApplicationRecord
+  REQUIRED_NUMBER_OF_TEAMS_TO_START = 16
+
+  STATUSES = [
+    DRAFT = "draft",
+    IN_PROGRESS = "in_progress",
+    DONE = "done"
+  ].freeze
+
   has_many :tournament_teams, dependent: :destroy
   has_many :teams, through: :tournament_teams
   has_many :games, dependent: :destroy # maybe change into has_many :games, through: :divisins
@@ -8,11 +16,17 @@ class Tournament < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :status, presence: true
+  # validates :status, presence: true, inclusion: {in: STATUSES}
 
-  enum status: {draft: "draft", in_progress: "in_progress", done: "done"}
+  enum status: {draft: DRAFT, in_progress: IN_PROGRESS, done: DONE}
 
   def space_for_team?(team)
     free_space? && does_not_have_team?(team)
+  end
+
+  def ready_to_start?
+    # teams.count == REQUIRED_NUMBER_OF_TEAMS_TO_START
+    true
   end
 
   private
@@ -22,6 +36,6 @@ class Tournament < ApplicationRecord
     end
 
     def free_space?
-      teams.count < 16
+      teams.count < REQUIRED_NUMBER_OF_TEAMS_TO_START
     end
 end

@@ -18,6 +18,9 @@ en:
     tournament_teams:
       tournament_teams: Tournament teams
       name: Name
+    start_tournament:
+      start_tournament: Start the tournament
+      start:  Start
   teams:
     create_form:
       create_team: Create team

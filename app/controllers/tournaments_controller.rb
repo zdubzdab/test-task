@@ -17,6 +17,12 @@ class TournamentsController < ApplicationController
     @new_team = Team.new
   end
 
+  def start
+    TournamentStarter.call(tournament)
+
+    redirect_back(fallback_location: tournament_path(tournament))
+  end
+
   private
 
     def tournament_params

@@ -11,4 +11,4 @@
           %td= team.name
           %td
             - if tournament.space_for_team?(team)
-              = button_to t('.assign_to_current_tournament'), tournament_team_path(tournament), method: :patch, params: { team: { "team_id" => team.id, "tournament_id" => tournament.id } }
+              = button_to t('.assign_to_current_tournament'), tournament_teams_path(tournament), method: :patch, params: { team: { "team_id" => team.id, "tournament_id" => tournament.id } }

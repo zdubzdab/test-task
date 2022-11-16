@@ -1,0 +1,5 @@
+%div.form-group.col-md-3
+  %h4= t('.start_tournament')
+
+  = simple_form_for tournament, url: start_tournament_path(tournament) do |f|
+    = f.button :submit, t('.start'), disabled: !tournament.ready_to_start?
