@@ -1,0 +1,10 @@
+%div.col-md-5
+  %h3= t('.tournament_teams')
+  %table.table
+    %thead
+      %tr
+        %th= t('.name')
+    %tbody
+      - tournament.teams.each do |team|
+        %tr
+          %td= team.name

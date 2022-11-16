@@ -15,8 +15,8 @@ class Tournament < ApplicationRecord
   has_many :divisions, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
-  validates :status, presence: true
-  # validates :status, presence: true, inclusion: {in: STATUSES}
+  # validates :status, presence: true
+  validates :status, presence: true, inclusion: {in: STATUSES}
 
   enum status: {draft: DRAFT, in_progress: IN_PROGRESS, done: DONE}
 

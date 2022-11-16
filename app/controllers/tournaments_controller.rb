@@ -14,6 +14,9 @@ class TournamentsController < ApplicationController
   end
 
   def show
+  end
+
+  def edit
     @new_team = Team.new
   end
 

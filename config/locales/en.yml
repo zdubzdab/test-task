@@ -7,23 +7,26 @@ en:
       winner: Winner
       finalist: Finalist
       show: Show
+      edit: Edit
     form:
       create_tournament: Create tournament
+    edit:
+      tournament: "Tournament name: %{name}"
     show:
       tournament: "Tournament name: %{name}"
-    teams:
-      all_teams: All teams
-      name: Name
-      assign_to_current_tournament: Assign to current tournament
-    tournament_teams:
-      tournament_teams: Tournament teams
-      name: Name
     start_tournament:
       start_tournament: Start the tournament
       start:  Start
-  teams:
-    create_form:
-      create_team: Create team
-    random_create_form:
-      generate_random_team: Generate a random team
-      generate:  Generate
+    teams:
+      create_form:
+        create_team: Create team
+      random_create_form:
+        generate_random_team: Generate a random team
+        generate:  Generate
+      all_teams:
+        all_teams: All teams
+        name: Name
+        assign_to_current_tournament: Assign to current tournament
+      tournament_teams:
+        tournament_teams: Tournament teams
+        name: Name

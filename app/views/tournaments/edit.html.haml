@@ -1,0 +1,10 @@
+%div
+  %div.col-md-10
+    %h3= t('.tournament', name: tournament.name)
+
+    = render 'tournaments/teams/create_form', new_team: @new_team
+    = render 'tournaments/teams/random_create_form', new_team: @new_team
+    = render 'start_tournament'
+    = render 'tournaments/teams/tournament_teams'
+    = render 'tournaments/teams/all_teams'
+

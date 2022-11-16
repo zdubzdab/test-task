@@ -13,5 +13,5 @@ class Division < ApplicationRecord
 
   enum category: {a: "A", b: "B"}
 
-  # validates :category, presence: true, inclusion: {in: STATUSES}
+  validates :category, presence: true, inclusion: {in: CATEGORIES}
 end
