@@ -3,11 +3,7 @@
 class Tournament < ApplicationRecord
   REQUIRED_NUMBER_OF_TEAMS_TO_START = 16
 
-  STATUSES = [
-    DRAFT = "draft",
-    IN_PROGRESS = "in_progress",
-    DONE = "done"
-  ].freeze
+  STATUSES = [DRAFT = "draft", IN_PROGRESS = "in_progress", DONE = "done"].freeze
 
   has_many :tournament_teams, dependent: :destroy
   has_many :teams, through: :tournament_teams
