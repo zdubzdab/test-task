@@ -50,6 +50,8 @@ group :development, :test do
   gem "byebug", "~> 11.1.3", platform: :mri
   # Brings the RSpec testing framework to Ruby on Rails
   gem "rspec-rails", "~> 3.9.0"
+  # Rails integration for factory_bot.
+  gem "factory_bot_rails", "~> 6.2.0"
 end
 
 group :development do

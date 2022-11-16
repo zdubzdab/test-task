@@ -62,7 +62,7 @@ RSpec.describe TeamCreator do
 
     context "when name of team is already taken" do
       let(:name) { "name" }
-      let!(:team) { Team.create(name: name) }
+      let!(:team) { create(:team, name: name) }
 
       it "does not create a team" do
         expect{
