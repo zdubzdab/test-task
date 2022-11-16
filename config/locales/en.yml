@@ -30,3 +30,7 @@ en:
       tournament_teams:
         tournament_teams: Tournament teams
         name: Name
+    divisions:
+      list:
+        division: "Division: %{type}"
+        team_name: Team name

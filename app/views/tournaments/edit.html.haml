@@ -5,6 +5,11 @@
     = render 'tournaments/teams/create_form', new_team: @new_team
     = render 'tournaments/teams/random_create_form', new_team: @new_team
     = render 'start_tournament'
+  %hr
     = render 'tournaments/teams/tournament_teams'
-    = render 'tournaments/teams/all_teams'
-
+    - if tournament.draft?
+      = render 'tournaments/teams/all_teams'
+  %hr
+    - if tournament.in_progress?
+      = render 'tournaments/divisions/list', division: tournament.divisions.first
+      = render 'tournaments/divisions/list', division: tournament.divisions.last
