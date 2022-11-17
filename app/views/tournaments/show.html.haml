@@ -2,5 +2,13 @@
   %div.col-md-10
     %h3= t('.tournament', name: tournament.name)
 
+    %div
+      = link_to t('.index'), tournaments_path
+    %div
+      = link_to t('.edit'), edit_tournament_path(tournament)
+
     = simple_form_for tournament, url: generate_result_tournament_path(tournament) do |f|
-      = f.button :submit, t('.generate_result')
+      = f.button :submit, t('.generate_divisions_results'), disabled: !tournament.divisions.empty?
+
+    = simple_form_for tournament, url: generate_result_tournament_path(tournament) do |f|
+      = f.button :submit, t('.generate_playoff_results'), disabled: tournament.divisions.empty?

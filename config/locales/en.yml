@@ -14,7 +14,8 @@ en:
       tournament: "Tournament name: %{name}"
     show:
       tournament: "Tournament name: %{name}"
-      generate_result: Generate result for games in divisions
+      generate_divisions_results: Generate result for games in divisions
+      generate_playoff_results: Generate result for playoff
     start_tournament:
       start_tournament: Start the tournament
       start:  Start

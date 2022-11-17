@@ -2,6 +2,11 @@
   %div.col-md-10
     %h3= t('.tournament', name: tournament.name)
 
+    %div
+      = link_to t('.index'), tournaments_path
+    %div
+      = link_to t('.show'), tournament_path(tournament)
+
     = render 'tournaments/teams/create_form', new_team: @new_team
     = render 'tournaments/teams/random_create_form', new_team: @new_team
     = render 'start_tournament'

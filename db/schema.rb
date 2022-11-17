@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221116085907) do
+ActiveRecord::Schema.define(version: 20221117133814) do
 
   create_table "division_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "team_id",     null: false
@@ -41,18 +41,20 @@ ActiveRecord::Schema.define(version: 20221116085907) do
   end
 
   create_table "playoff_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "team_id",    null: false
-    t.integer  "playoff_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "team_id",                   null: false
+    t.integer  "playoff_id",                null: false
+    t.integer  "playoff_stage", default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["playoff_id"], name: "index_playoff_teams_on_playoff_id", using: :btree
     t.index ["team_id"], name: "index_playoff_teams_on_team_id", using: :btree
   end
 
   create_table "playoffs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "tournament_id", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "tournament_id",           null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "category",      limit: 1, null: false
     t.index ["tournament_id"], name: "index_playoffs_on_tournament_id", using: :btree
   end
 
