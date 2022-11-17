@@ -25,6 +25,12 @@ class TournamentsController < ApplicationController
     redirect_back(fallback_location: tournament_path(tournament))
   end
 
+  def generate_result
+    ResultsGenerator.call(tournament)
+
+    redirect_back(fallback_location: tournament_path(tournament))
+  end
+
   private
 
     def tournament_params

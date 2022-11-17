@@ -8,7 +8,7 @@ class Division < ApplicationRecord
 
   belongs_to :tournament
 
-  enum category: {a: "A", b: "B"}
+  enum category: {A: A, B: B}
 
   validates :category, presence: true, inclusion: {in: CATEGORIES}
 end

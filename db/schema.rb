@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20221116085907) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "playoff_id"
+    t.integer  "division_id"
+    t.index ["division_id"], name: "index_games_on_division_id", using: :btree
     t.index ["playoff_id"], name: "index_games_on_playoff_id", using: :btree
     t.index ["tournament_id"], name: "index_games_on_tournament_id", using: :btree
   end
@@ -94,6 +96,7 @@ ActiveRecord::Schema.define(version: 20221116085907) do
   add_foreign_key "division_teams", "divisions"
   add_foreign_key "division_teams", "teams"
   add_foreign_key "divisions", "tournaments"
+  add_foreign_key "games", "divisions"
   add_foreign_key "games", "playoffs"
   add_foreign_key "games", "tournaments"
   add_foreign_key "playoff_teams", "playoffs"

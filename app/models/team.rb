@@ -8,4 +8,8 @@ class Team < ApplicationRecord
   has_many :games, through: :team_games
 
   validates :name, presence: true, uniqueness: true
+
+  def tournament_team_by_tournament_id(tournament_id)
+    tournament_teams.where(tournament_id: tournament_id)
+  end
 end

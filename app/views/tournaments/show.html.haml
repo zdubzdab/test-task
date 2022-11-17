@@ -2,4 +2,5 @@
   %div.col-md-10
     %h3= t('.tournament', name: tournament.name)
 
-
+    = simple_form_for tournament, url: generate_result_tournament_path(tournament) do |f|
+      = f.button :submit, t('.generate_result')

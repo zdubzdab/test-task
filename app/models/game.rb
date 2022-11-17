@@ -5,4 +5,5 @@ class Game < ApplicationRecord
   has_many :teams, through: :team_games
 
   belongs_to :tournament
+  belongs_to :division
 end
