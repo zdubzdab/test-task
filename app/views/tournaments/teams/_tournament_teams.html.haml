@@ -3,10 +3,12 @@
   %table.table
     %thead
       %tr
-        %th= t('.name')
+        %th
+        %th= t('.team_name')
     %tbody
-      - tournament.teams.each do |team|
+      - tournament.teams.each_with_index do |team, index|
         %tr
+          %td= index + 1
           %td= team.name
 
 

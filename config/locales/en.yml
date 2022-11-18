@@ -14,11 +14,11 @@ en:
       tournament: "Tournament name: %{name}"
     show:
       tournament: "Tournament name: %{name}"
-      generate_divisions_results: Generate result for games in divisions
-      generate_playoff_results: Generate result for playoff
+      generate_divisions_results: Generate results for games in divisions
+      generate_playoff_results: Generate results for playoff
     start_tournament:
       start_tournament: Start the tournament
-      start:  Start
+      start: Start
     teams:
       create_form:
         create_team: Create team
@@ -31,7 +31,7 @@ en:
         assign_to_current_tournament: Assign to current tournament
       tournament_teams:
         tournament_teams: Tournament teams
-        name: Name
+        name: Team name
     divisions:
       list:
         division: "Division: %{type}"

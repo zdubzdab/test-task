@@ -15,6 +15,11 @@ class Division < ApplicationRecord
   validates :category, presence: true, inclusion: {in: CATEGORIES}
 
   def best_teams
-    teams.includes(:tournament_teams).order("tournament_teams.score desc").limit(4)
+    # limit(4) doesn't work correctly here
+    teams.
+      includes(:tournament_teams).
+      order("tournament_teams.score desc").
+      to_a.
+      first(4)
   end
 end

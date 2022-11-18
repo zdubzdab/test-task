@@ -7,6 +7,7 @@ module GameResultGenerator
   def call(array_with_teams, tournament_stage, tournament)
     winner = array_with_teams[rand(2)]
     loser = (array_with_teams - [winner]).first
+
     ActiveRecord::Base.transaction do
       game = Game.create!(
         :tournament => tournament,
@@ -21,6 +22,6 @@ module GameResultGenerator
       tournament_team.save!
     end
 
-    { winner: winner, loser: loser }
+    {winner: winner, loser: loser}
   end
 end

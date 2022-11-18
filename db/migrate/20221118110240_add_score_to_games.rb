@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class AddScoreToGames < ActiveRecord::Migration[5.0]
   def change
-    add_column :games, :loser_score, :integer
-    add_column :games, :winner_score, :integer
+    change_table(:games, bulk: true) do |t|
+      t.integer(:loser_score)
+      t.integer(:winner_score)
+    end
   end
 end

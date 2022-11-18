@@ -7,11 +7,10 @@ class Tournament < ApplicationRecord
 
   has_many :tournament_teams, dependent: :destroy
   has_many :teams, through: :tournament_teams
-  has_many :games, dependent: :destroy # maybe change into has_many :games, through: :divisins
+  has_many :games, dependent: :destroy
   has_many :divisions, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
-  # validates :status, presence: true
   validates :status, presence: true, inclusion: {in: STATUSES}
 
   enum status: {draft: DRAFT, in_progress: IN_PROGRESS, done: DONE}
@@ -21,8 +20,7 @@ class Tournament < ApplicationRecord
   end
 
   def ready_to_start?
-    # teams.count == REQUIRED_NUMBER_OF_TEAMS_TO_START
-    true
+    teams.count == REQUIRED_NUMBER_OF_TEAMS_TO_START
   end
 
   private

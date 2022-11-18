@@ -11,4 +11,4 @@
       = f.button :submit, t('.generate_divisions_results'), disabled: (tournament.divisions.empty? || !tournament.games.empty?)
 
     = simple_form_for tournament, url: generate_result_tournament_path(tournament) do |f|
-      = f.button :submit, t('.generate_playoff_results'), disabled: tournament.divisions.empty?
+      = f.button :submit, t('.generate_playoff_results'), disabled: tournament.divisions.empty? || tournament.done?

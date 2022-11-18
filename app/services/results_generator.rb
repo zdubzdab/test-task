@@ -7,7 +7,7 @@ module ResultsGenerator
     if tournament.games.empty?
       DivisionsResultsGenerator
     else
-      # PlayoffResultsGenerator
+      PlayoffResultsGenerator
     end.new(tournament).call
   end
 end

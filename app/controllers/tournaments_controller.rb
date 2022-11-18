@@ -8,8 +8,9 @@ class TournamentsController < ApplicationController
   end
 
   def create
-    @new_tournament = Tournament.create!(tournament_params)
-
+    # rubocop:disable Rails/SaveBang
+    @new_tournament = Tournament.create(tournament_params)
+    # rubocop:enable Rails/SaveBang
     render :index
   end
 
