@@ -8,11 +8,11 @@ module TournamentStarter
 
     ActiveRecord::Base.transaction do
       # TODO: change into 8!!!!
-      teams_for_division_a = tournament.teams.sample(2)
+      teams_for_division_a = tournament.teams.sample(8)
       teams_for_division_b = tournament.teams - teams_for_division_a
 
-      division_a = Division.new(category: CategoryEnum::A, tournament: tournament)
-      division_b = Division.new(category: CategoryEnum::B, tournament: tournament)
+      division_a = Division.new(category: Division::A, tournament: tournament)
+      division_b = Division.new(category: Division::B, tournament: tournament)
 
       division_a.teams = teams_for_division_a
       division_b.teams = teams_for_division_b

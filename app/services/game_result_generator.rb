@@ -17,8 +17,10 @@ module GameResultGenerator
       loser.team_games.create!(game: game, win: false)
 
       tournament_team = winner.tournament_team_by_tournament_id(tournament.id).first
-      tournament_team.score = + 1
+      tournament_team.score += 1
       tournament_team.save!
     end
+
+    { winner: winner, loser: loser }
   end
 end
