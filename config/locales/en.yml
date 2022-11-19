@@ -43,8 +43,7 @@ en:
       teams_with_games_results:
         division: "Division: %{type}"
         team_name: Team name
-        team_1_name: Team 1 name
-        team_2_name: Team 2 name
+        team_name: Team name
         result: Result
       rated_teams:
         division: "Division: %{type}"
@@ -52,8 +51,7 @@ en:
         score: Score
     playoff:
       results:
-        team_1_name: Team 1 name
-        team_2_name: Team 2 name
+        team_name: Team name
         result: Result
       rated_teams:
         playoff: Playoff

@@ -4,9 +4,9 @@
     %thead
       %tr
         %th
-        %th= t('.team_1_name')
+        %th= t('.team_name')
         %th= t('.result')
-        %th= t('.team_2_name')
+        %th= t('.team_name')
     %tbody
       - playoff.games.includes(:team_games).each_with_index do |game, index|
         %tr
