@@ -8,14 +8,17 @@ module GameResultGenerator
     winner = array_with_teams[rand(2)]
     loser = (array_with_teams - [winner]).first
 
+    winner_goals = rand(1..9)
+    loser_goals = rand(0..(winner_goals - 1))
+
     ActiveRecord::Base.transaction do
       game = Game.create!(
         :tournament => tournament,
         tournament_stage.class.to_s.underscore => tournament_stage
 )
 
-      winner.team_games.create!(game: game, win: true)
-      loser.team_games.create!(game: game, win: false)
+      winner.team_games.create!(game: game, win: true, score: winner_goals)
+      loser.team_games.create!(game: game, win: false, score: loser_goals)
 
       tournament_team = winner.tournament_team_by_tournament_id(tournament.id).first
       tournament_team.score += 1

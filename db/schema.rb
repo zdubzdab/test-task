@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221118110240) do
+ActiveRecord::Schema.define(version: 20221119105310) do
 
   create_table "division_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "team_id",     null: false
@@ -35,8 +35,6 @@ ActiveRecord::Schema.define(version: 20221118110240) do
     t.datetime "updated_at",    null: false
     t.integer  "playoff_id"
     t.integer  "division_id"
-    t.integer  "loser_score"
-    t.integer  "winner_score"
     t.index ["division_id"], name: "index_games_on_division_id", using: :btree
     t.index ["playoff_id"], name: "index_games_on_playoff_id", using: :btree
     t.index ["tournament_id"], name: "index_games_on_tournament_id", using: :btree
@@ -65,6 +63,7 @@ ActiveRecord::Schema.define(version: 20221118110240) do
     t.boolean  "win",        null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "score"
     t.index ["game_id", "win"], name: "index_team_games_on_game_id_and_win", unique: true, using: :btree
     t.index ["game_id"], name: "index_team_games_on_game_id", using: :btree
     t.index ["team_id"], name: "index_team_games_on_team_id", using: :btree
@@ -84,6 +83,7 @@ ActiveRecord::Schema.define(version: 20221118110240) do
     t.datetime "updated_at",                null: false
     t.integer  "score",         default: 0, null: false
     t.integer  "place"
+    t.index ["score"], name: "index_tournament_teams_on_score", using: :btree
     t.index ["team_id", "tournament_id"], name: "index_tournament_teams_on_team_id_and_tournament_id", unique: true, using: :btree
     t.index ["team_id"], name: "index_tournament_teams_on_team_id", using: :btree
     t.index ["tournament_id"], name: "index_tournament_teams_on_tournament_id", using: :btree
