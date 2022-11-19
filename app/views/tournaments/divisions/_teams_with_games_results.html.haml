@@ -1,0 +1,16 @@
+%div.col-md-5
+  %h3= t('.division', type: division.category)
+  %table.table
+    %thead
+      %tr
+        %th
+        %th= t('.team_1_name')
+        %th= t('.result')
+        %th= t('.team_2_name')
+    %tbody
+      - division.games.includes(:team_games).each_with_index do |game, index|
+        %tr
+          %td= index + 1
+          %td= game.team_games.first.team.name
+          %td= "#{game.team_games.first.score} - #{game.team_games.last.score}"
+          %td= game.team_games.last.team.name

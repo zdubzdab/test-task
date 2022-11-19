@@ -1,0 +1,17 @@
+%div.col-md-5
+  %h3= t('.division', type: division.category)
+  %table.table
+    %thead
+      %tr
+        %th
+        %th= t('.name')
+        %th= t('.score')
+    %tbody
+      - division.best_teams.each_with_index do |team, index|
+        %tr
+          %td= index + 1
+          %td= team.name
+          %td
+            - unless tournament.done?
+              = team.tournament_team_by_tournament_id(division.tournament.id).first.score
+

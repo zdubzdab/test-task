@@ -18,7 +18,7 @@
           %tr
             %td= tournament.name
             %td= tournament.status
-            %td
-            %td
+            %td= tournament.team_name_with_place(1)
+            %td= tournament.team_name_with_place(2)
             %td= link_to t('.edit'), edit_tournament_path(tournament)
             %td= link_to t('.show'), tournament_path(tournament)

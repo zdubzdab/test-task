@@ -6,7 +6,7 @@ class Division < ApplicationRecord
   has_many :division_teams, dependent: :destroy
   has_many :teams, through: :division_teams
   has_many :tournament_teams, through: :teams
-  has_many :games
+  has_many :games, dependent: nil
 
   belongs_to :tournament
 
@@ -14,12 +14,16 @@ class Division < ApplicationRecord
 
   validates :category, presence: true, inclusion: {in: CATEGORIES}
 
-  def best_teams
+  def best_teams_first(number)
     # limit(4) doesn't work correctly here
     teams.
       includes(:tournament_teams).
       order("tournament_teams.score desc").
       to_a.
-      first(4)
+      first(number)
+  end
+
+  def best_teams
+    teams.includes(:tournament_teams).order("tournament_teams.score desc")
   end
 end

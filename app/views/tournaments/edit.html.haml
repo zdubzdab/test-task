@@ -16,5 +16,5 @@
       = render 'tournaments/teams/all_teams'
   %hr
     - if tournament.in_progress?
-      = render 'tournaments/divisions/list', division: tournament.divisions.first
-      = render 'tournaments/divisions/list', division: tournament.divisions.last
+      = render 'tournaments/divisions/teams', division: tournament.divisions.first
+      = render 'tournaments/divisions/teams', division: tournament.divisions.last

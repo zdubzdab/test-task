@@ -9,6 +9,7 @@ class Tournament < ApplicationRecord
   has_many :teams, through: :tournament_teams
   has_many :games, dependent: :destroy
   has_many :divisions, dependent: :destroy
+  has_one :playoff, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :status, presence: true, inclusion: {in: STATUSES}
@@ -21,6 +22,12 @@ class Tournament < ApplicationRecord
 
   def ready_to_start?
     teams.count == REQUIRED_NUMBER_OF_TEAMS_TO_START
+  end
+
+  def team_name_with_place(place)
+    teams.includes(:tournament_teams).where(tournament_teams: {place: place})&.
+      first&.
+      name
   end
 
   private

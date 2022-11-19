@@ -8,13 +8,16 @@ class PlayoffResultsGenerator
 
   def call
     ActiveRecord::Base.transaction do
-      @playoff = Playoff.create!(tournament_id: tournament.id)
+      playoff_teams = tournament.divisions.first.best_teams_first(4) +
+        tournament.divisions.last.best_teams_first(4)
+      @playoff = Playoff.create!(tournament_id: tournament.id, teams: playoff_teams)
+
       # first_playoff_round
       first_division_results = get_winners_losers(
-        play_first_playoff_round(tournament.divisions.first.best_teams)
+        play_first_playoff_round(tournament.divisions.first.best_teams_first(4))
       )
       second_division_results = get_winners_losers(
-        play_first_playoff_round(tournament.divisions.last.best_teams)
+        play_first_playoff_round(tournament.divisions.last.best_teams_first(4))
       )
 
       tournament_teams_sorted(
