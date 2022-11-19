@@ -17,13 +17,13 @@ class Division < ApplicationRecord
   def best_teams_first(number)
     # limit(4) doesn't work correctly here
     teams.
-      includes(:tournament_teams).
-      order("tournament_teams.score desc").
+      includes(:division_teams).
+      order("division_teams.score desc").
       to_a.
       first(number)
   end
 
   def best_teams
-    teams.includes(:tournament_teams).order("tournament_teams.score desc")
+    teams.includes(:division_teams).order("division_teams.score desc")
   end
 end

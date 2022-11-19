@@ -11,7 +11,5 @@
         %tr
           %td= index + 1
           %td= team.name
-          %td
-            - unless tournament.done?
-              = team.tournament_team_by_tournament_id(division.tournament.id).first.score
+          %td= team.division_team_by_division_id(division.id).first.score
 

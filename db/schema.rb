@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221119105310) do
+ActiveRecord::Schema.define(version: 20221119151940) do
 
   create_table "division_teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "team_id",     null: false
-    t.integer  "division_id", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "team_id",                 null: false
+    t.integer  "division_id",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "score",       default: 0
     t.index ["division_id"], name: "index_division_teams_on_division_id", using: :btree
     t.index ["team_id"], name: "index_division_teams_on_team_id", using: :btree
   end
