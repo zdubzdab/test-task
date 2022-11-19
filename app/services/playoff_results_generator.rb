@@ -6,6 +6,7 @@ class PlayoffResultsGenerator
     @generator = generator
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
   def call
     ActiveRecord::Base.transaction do
       playoff_teams = tournament.divisions.first.best_teams_first(4) +
@@ -53,6 +54,7 @@ class PlayoffResultsGenerator
       tournament.update!(status: Tournament::DONE)
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
 
   private
 

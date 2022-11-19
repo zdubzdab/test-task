@@ -4,6 +4,7 @@ module GameResultGenerator
   extend self
   # array_with_teams eg. [team_1, team_2]
   # tournament_stage can be division or playoff
+  # rubocop:disable Metrics/AbcSize
   def call(array_with_teams, tournament_stage, tournament)
     winner = array_with_teams[rand(2)]
     loser = (array_with_teams - [winner]).first
@@ -34,4 +35,5 @@ module GameResultGenerator
 
     {winner: winner, loser: loser}
   end
+  # rubocop:enable Metrics/AbcSize
 end
