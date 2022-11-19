@@ -17,24 +17,6 @@ RSpec.describe TeamCreator do
     it "creates a team" do
       expect { instance_of_service.call }.to change { Team.count }.by(1)
     end
-
-    # context "and name of team is already taken" do
-    #   let(:name) { "name" }
-    #   let!(:team) { Team.create(name: name) }
-
-    #   let(:faker_instance) { Faker::Name.unique }
-
-    #   before do
-    #     # allow(Faker::Name).to receive(:unique).and_return(faker_instance)
-
-    #     Faker::Name.stub(:name) { Faker::Name.unstub(:name); name }
-    #   end
-
-    #   it "creates a team" do
-    #     # expect { subject }.to change { Team.count }.by(1)
-    #     expect(subject).not_to have_attributes(name: name)
-    #   end
-    # end
   end
 
   context "when user creates a team" do

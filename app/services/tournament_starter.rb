@@ -7,7 +7,6 @@ module TournamentStarter
     return unless tournament.ready_to_start?
 
     ActiveRecord::Base.transaction do
-      # TODO: change into 8!!!!
       teams_for_division_a = tournament.teams.sample(8)
       teams_for_division_b = tournament.teams - teams_for_division_a
 

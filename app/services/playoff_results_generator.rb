@@ -26,6 +26,7 @@ class PlayoffResultsGenerator
       ).each_with_index do |tournament_team, index|
         tournament_team.update!(place: (index + 5))
       end
+
       # second_playoff_round
       second_playoff_first_game = generator.call(
         first_division_results[:winners], playoff,
@@ -44,6 +45,7 @@ class PlayoffResultsGenerator
       ).each_with_index do |tournament_team, index|
         tournament_team.update!(place: (index + 3))
       end
+
       # final
       finalists = [
         second_playoff_first_game[:winner],
