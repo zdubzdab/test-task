@@ -24,10 +24,14 @@ class Tournament < ApplicationRecord
     teams.count == REQUIRED_NUMBER_OF_TEAMS_TO_START
   end
 
-  def team_name_with_place(place)
-    teams.includes(:tournament_teams).where(tournament_teams: {place: place})&.
-      first&.
-      name
+  def team_by_place(place)
+    teams.includes(:tournament_teams).where(tournament_teams: {place: place})&.first
+  end
+
+  def rated_teams
+    teams.
+      includes(:tournament_teams).
+      order("tournament_teams.place, tournament_teams.score desc")
   end
 
   private

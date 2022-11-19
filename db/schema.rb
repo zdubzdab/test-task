@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20221119151940) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "score",         default: 0, null: false
-    t.integer  "place"
+    t.integer  "place",         default: 9
     t.index ["score"], name: "index_tournament_teams_on_score", using: :btree
     t.index ["team_id", "tournament_id"], name: "index_tournament_teams_on_team_id_and_tournament_id", unique: true, using: :btree
     t.index ["team_id"], name: "index_tournament_teams_on_team_id", using: :btree

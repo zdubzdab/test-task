@@ -1,0 +1,15 @@
+%div.col-md-5
+  %h3= t('.tournament_results')
+  %table.table
+    %thead
+      %tr
+        %th
+        %th= t('.name')
+        %th= t('.score')
+    %tbody
+      - tournament.rated_teams.each_with_index do |team, index|
+        %tr
+          %td= index + 1
+          %td= team.name
+          %td= team.tournament_team_by_tournament_id(tournament.id).first.score
+

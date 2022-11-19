@@ -25,7 +25,8 @@ module GameResultGenerator
       tournament_team.save!
 
       if tournament_stage.instance_of?(Division)
-        division_team = winner.division_team_by_division_id(tournament_stage.id).first
+        division_team =
+          winner.division_team_by_division_id(tournament_stage.id).first
         division_team.score += 1
         division_team.save!
       end

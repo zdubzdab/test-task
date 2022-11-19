@@ -32,6 +32,10 @@ en:
       tournament_teams:
         tournament_teams: Tournament teams
         name: Team name
+      rated_teams:
+        tournament_results: Tournament results
+        name: Team name
+        score: Score
     divisions:
       teams:
         division: "Division: %{type}"
