@@ -6,7 +6,7 @@ class Division < ApplicationRecord
   has_many :division_teams, dependent: :destroy
   has_many :teams, through: :division_teams
   has_many :tournament_teams, through: :teams
-  has_many :games, through: :teams
+  has_many :games
 
   belongs_to :tournament
 

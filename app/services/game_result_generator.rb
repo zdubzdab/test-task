@@ -8,7 +8,7 @@ module GameResultGenerator
     winner = array_with_teams[rand(2)]
     loser = (array_with_teams - [winner]).first
 
-    winner_goals = rand(1..9)
+    winner_goals = rand(1..7)
     loser_goals = rand(0..(winner_goals - 1))
 
     ActiveRecord::Base.transaction do

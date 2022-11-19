@@ -12,3 +12,7 @@
 
     = simple_form_for tournament, url: generate_result_tournament_path(tournament) do |f|
       = f.button :submit, t('.generate_playoff_results'), disabled: tournament.divisions.empty? || tournament.done?
+
+  - if tournament.in_progress? && tournament.divisions.first.games.any?
+    = render 'tournaments/divisions/list_with_results', division: tournament.divisions.first
+    = render 'tournaments/divisions/list_with_results', division: tournament.divisions.last

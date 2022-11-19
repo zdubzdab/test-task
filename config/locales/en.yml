@@ -36,3 +36,9 @@ en:
       list:
         division: "Division: %{type}"
         team_name: Team name
+      list_with_results:
+        division: "Division: %{type}"
+        team_name: Team name
+        team_1_name: Team 1 name
+        team_2_name: Team 2 name
+        result: Result
