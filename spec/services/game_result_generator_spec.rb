@@ -11,14 +11,12 @@ RSpec.describe GameResultGenerator do
   let(:team_2) { create(:team) }
   let(:tournament) { create(:tournament, teams: [team_1, team_2]) }
 
-  context "when tournament_stage is playoff" do
-    let(:tournament_stage) { create(:playoff, tournament: tournament) }
-
+  shared_examples "generate game for tournament stage" do |tournament_stage_id|
     it "creates a game with appropriate attributes" do
       expect { service }.to change { Game.count }.by(1)
 
       expect(Game.last.tournament_id).to eq(tournament.id)
-      expect(Game.last.playoff_id).to eq(tournament_stage.id)
+      expect(Game.last.public_send(tournament_stage_id)).to eq(tournament_stage.id)
     end
 
     it "creates an instance variables of team game with appropriate attributes" do
@@ -52,6 +50,25 @@ RSpec.describe GameResultGenerator do
     end
   end
 
-  context "when tournament_stage is division" do
+  context "when tournament stage is playoff" do
+    let(:tournament_stage) { create(:playoff, tournament: tournament) }
+
+    it_behaves_like "generate game for tournament stage", "playoff_id"
+  end
+
+  context "when tournament stage is division" do
+    let(:tournament_stage) {
+      create(:division, tournament: tournament, teams: [team_1, team_2])
+    }
+
+    it_behaves_like "generate game for tournament stage", "division_id"
+
+    it "adds score to relation DB table of winner and division" do
+      service
+
+      winner = TeamGame.all.find_by(win: true).team
+
+      expect(winner.division_teams.last.score).to eq(1)
+    end
   end
 end
