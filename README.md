@@ -1,13 +1,10 @@
-# Mogo Car Finance Ruby on Rails developer task
+# Ruby on Rails developer task
 In this task a developer is asked to develop software that can be used to manage tournament scoring, for example, football.
 
 ### User story:
 1. Home screen: There is a list of all tournaments (name, status, winner, finalist). User can create new one, by entering tournament's name.
 2. New tournament: There is list of all teams, and possibility to add new team. User can choose teams to participate in this tournament. After clicking start, teams are randomly split in two divisions.
-3. View Tournament: It should be possible to see each game between teams, each division separately. There should be button to generate results for all teams. When results is generated, start playoff. After playoff is started, playoff generation button should be visible. Results can also be enetered manually. Regular seasons table example:
-
-![alt text](./Games.jpg "Games example")￼
-
+3. View Tournament: It should be possible to see each game between teams, each division separately. There should be button to generate results for all teams. When results is generated, start playoff. After playoff is started, playoff generation button should be visible.
 4. User can go back to index and to any tournament anytime in the program's lifecycle.
 
 ### Functional requirements:
@@ -26,9 +23,8 @@ In this task a developer is asked to develop software that can be used to manage
 1. Ruby version 2.7.1
 2. Rails 5.0
 3. Database engine MySQL 5.7.x.
-4. Ruby gemset name "tournament"
-5. Rspec 3.9 
-6. Rubocop 1.25.1 with given [rubocop.yml](./rubocop.yml) file and related gems.
+4. Rspec 3.9
+5. Rubocop 1.25.1 with given [rubocop.yml](./rubocop.yml) file and related gems.
 ```
 "rubocop-rspec", "2.9.0"
 "rubocop-rails", "2.13.2"
